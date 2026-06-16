@@ -1,0 +1,18 @@
+{
+  "name": "@sdet-lab/api-tests",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "playwright test --config playwright.config.ts --ignore-snapshots --workers=1",
+    "test:pact:consumer": "playwright test --config playwright.config.ts specs/pact/consumer.spec.ts",
+    "test:pact:provider": "playwright test --config playwright.config.ts specs/pact/provider.spec.ts",
+    "report": "allure generate allure-results -o allure-report --clean && allure open allure-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.1",
+    "@pact-foundation/pact": "^13.1.3",
+    "allure-playwright": "^3.0.4",
+    "zod": "^3.24.1",
+    "typescript": "^5.7.3",
+    "@types/node": "^22.10.7"
+  }
+}

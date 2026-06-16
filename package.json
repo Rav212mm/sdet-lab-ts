@@ -1,0 +1,16 @@
+{
+  "name": "sdet-lab-ts",
+  "private": true,
+  "workspaces": ["core", "api-tests", "ui-tests", "db-tests", "perf-tests"],
+  "scripts": {
+    "test:core": "npm run test -w core",
+    "test:api": "npm run test -w api-tests",
+    "test:ui": "npm run test -w ui-tests",
+    "test:db": "npm run test -w db-tests",
+    "test": "npm run test:core && npm run test:api && npm run test:db && npm run test:ui"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.7",
+    "typescript": "^5.7.3"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "name": "@sdet-lab/perf-tests",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "esbuild posts-simulation.ts --bundle --outfile=dist/posts-simulation.js --platform=browser --target=es2015 --external:k6 --external:k6/*",
+    "test:smoke": "k6 run dist/posts-simulation.js -e SCENARIO=smoke",
+    "test:load": "k6 run dist/posts-simulation.js -e SCENARIO=load"
+  },
+  "devDependencies": {
+    "@types/k6": "^2.0.0",
+    "esbuild": "^0.25.0",
+    "typescript": "^5.7.3"
+  }
+}

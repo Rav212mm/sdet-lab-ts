@@ -1,0 +1,30 @@
+{
+  "default": {
+    "paths": ["features/**/*.feature"],
+    "requireModule": ["ts-node/register"],
+    "require": [
+      "src/world/*.ts",
+      "src/hooks/*.ts",
+      "src/steps/*.ts"
+    ],
+    "format": [
+      "progress-bar",
+      "allure-cucumberjs/reporter"
+    ],
+    "formatOptions": {
+      "allureResultsDir": "allure-results"
+    },
+    "parallel": 1
+  },
+  "smoke": {
+    "paths": ["features/**/*.feature"],
+    "requireModule": ["ts-node/register"],
+    "require": [
+      "src/world/*.ts",
+      "src/hooks/*.ts",
+      "src/steps/*.ts"
+    ],
+    "tags": "@smoke",
+    "format": ["progress-bar"]
+  }
+}

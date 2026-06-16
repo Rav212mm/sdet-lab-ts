@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "target": "ES2015",
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "strict": true,
+    "skipLibCheck": true,
+    "types": ["k6"]
+  },
+  "include": ["*.ts"]
+}

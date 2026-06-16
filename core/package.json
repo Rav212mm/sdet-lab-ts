@@ -1,0 +1,12 @@
+{
+  "name": "@sdet-lab/core",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "vitest": "^2.1.8",
+    "typescript": "^5.7.3"
+  }
+}
