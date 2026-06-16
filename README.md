@@ -56,9 +56,10 @@ graph TD
 sdet-lab-ts/
 ├── core/                        # Business logic + Vitest unit tests
 ├── api-tests/                   # REST API tests (JSONPlaceholder)
+│   ├── src/apiConfig.ts            #   single source of truth: API base URL + headers
 │   ├── src/fixtures/apiClient.ts   #   shared Playwright APIRequestContext fixture
-│   ├── src/types/Post.ts           #   type-safe Post interface
-│   ├── src/schemas/postSchema.ts   #   Zod schemas (strict validation)
+│   ├── src/schemas/postSchema.ts   #   Zod schemas (strict validation) — source of the Post type
+│   ├── src/types/Post.ts           #   Post type (re-exported from the Zod schema)
 │   ├── specs/api.spec.ts           #   GET/POST/PUT/DELETE + schema validation
 │   ├── specs/posts.spec.ts         #   /posts resource tests
 │   ├── specs/posts-advanced.spec.ts#   query params, chained requests, strict Zod schema
@@ -98,6 +99,19 @@ npm install
 
 ---
 
+## Configuration (environment variables)
+
+All have sensible defaults — override only when needed:
+
+| Variable | Module | Default | Purpose |
+|---|---|---|---|
+| `BASE_URL` | ui-tests | `https://www.saucedemo.com/` | SauceDemo base URL |
+| `HEADLESS` | ui-tests | `true` | set `false` for headed/debug runs |
+| `API_BASE_URL` | api-tests | `https://jsonplaceholder.typicode.com` | REST API base URL (shared by config + request fixture) |
+| `SCENARIO` | perf-tests | `smoke` | k6 scenario: `smoke` or `load` |
+
+---
+
 ## How to Run Tests
 
 **All modules (core + api + db + ui):**
@@ -118,6 +132,12 @@ npm run test:ui
 cd ui-tests
 npm run test:smoke
 npm run test:regression
+```
+
+**API tests — tag filter:** specs are tagged `@smoke` / `@regression` (via the Playwright `describe` options), so Playwright's `--grep` selects by tag:
+```bash
+npm run test -w api-tests -- --grep @smoke
+npm run test -w api-tests -- --grep @regression
 ```
 
 **UI tests — headed mode (debugging):**
@@ -154,6 +174,8 @@ cd ui-tests && npm test && npm run report
 ---
 
 ### Playwright HTML report (API tests)
+
+The `html` reporter is wired into `playwright.config.ts` (`open: 'never'`), so each API run writes `api-tests/playwright-report/` without auto-launching a browser. Open it on demand:
 
 ```bash
 cd api-tests && npx playwright show-report
