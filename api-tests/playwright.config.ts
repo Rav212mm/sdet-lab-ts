@@ -1,4 +1,5 @@
 import { defineConfig } from '@playwright/test';
+import { API_BASE_URL, API_HEADERS } from './src/apiConfig';
 
 export default defineConfig({
   testDir: './specs',
@@ -10,10 +11,7 @@ export default defineConfig({
     ['allure-playwright', { outputFolder: 'allure-results' }],
   ],
   use: {
-    baseURL: 'https://jsonplaceholder.typicode.com',
-    extraHTTPHeaders: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
+    baseURL: API_BASE_URL,
+    extraHTTPHeaders: API_HEADERS,
   },
 });

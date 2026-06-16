@@ -1,14 +1,12 @@
 import { test as base, expect, APIRequestContext } from '@playwright/test';
+import { API_BASE_URL, API_HEADERS } from '../apiConfig';
 
 // Odpowiednik ApiSpecifications.java — shared request/response specs jako Playwright fixture
 export const test = base.extend<{ api: APIRequestContext }>({
   api: async ({ playwright }, use) => {
     const ctx = await playwright.request.newContext({
-      baseURL: 'https://jsonplaceholder.typicode.com',
-      extraHTTPHeaders: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
+      baseURL: API_BASE_URL,
+      extraHTTPHeaders: API_HEADERS,
     });
     await use(ctx);
     await ctx.dispose();

@@ -5,6 +5,7 @@ import type { InventoryPage } from '../pages/InventoryPage';
 import type { CartPage } from '../pages/CartPage';
 import type { SearchPage } from '../pages/SearchPage';
 import type { CheckoutPage } from '../pages/CheckoutPage';
+import { config } from '../utils/config';
 
 // Odpowiednik DriverManager.java + CommonSteps (shared state)
 // W Cucumber.js World pełni rolę kontenera IoC — zastępuje PicoContainer z Javy
@@ -26,7 +27,7 @@ export class PlaywrightWorld extends World {
 
   async init(): Promise<void> {
     this.browser = await chromium.launch({
-      headless: process.env['HEADLESS'] !== 'false',
+      headless: config.headless,
       args: ['--no-sandbox', '--disable-dev-shm-usage'],
     });
     this.context = await this.browser.newContext({

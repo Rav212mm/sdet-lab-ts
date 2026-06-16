@@ -2,7 +2,6 @@ import { When, Then } from '@cucumber/cucumber';
 import { expect } from '@playwright/test';
 import { PlaywrightWorld } from '../world/PlaywrightWorld';
 import { TestDataFactory } from '../utils/TestDataFactory';
-import { config } from '../utils/config';
 
 // Odpowiednik LoginSteps.java — this: PlaywrightWorld zamiast PicoContainer injection
 When('the user logs in as {string} role', async function(this: PlaywrightWorld, role: string) {
@@ -29,9 +28,8 @@ When('the user enters username {string} and password {string}', async function(
 });
 
 Then('the user should be redirected to the inventory page', async function(this: PlaywrightWorld) {
-  // Playwright auto-wait: czeka na nawigację bez ręcznego WebDriverWait
-  await this.page.waitForURL(/inventory\.html/, { timeout: 10_000 });
-  expect(this.page.url()).toBe(`${config.baseUrl}inventory.html`);
+  // Web-first assertion z retry — odporna na końcowy slash w BASE_URL
+  await expect(this.page).toHaveURL(/\/inventory\.html$/, { timeout: 10_000 });
 });
 
 Then('the user should see error message {string}', async function(
