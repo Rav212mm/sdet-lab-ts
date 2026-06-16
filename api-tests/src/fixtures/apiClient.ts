@@ -13,7 +13,7 @@ export const test = base.extend<{ api: APIRequestContext }>({
   },
 });
 
-// Odpowiednik okSpec() — sprawdza 200 + czas < 3s
+// Odpowiednik okSpec() — sprawdza status 200 + Content-Type application/json
 export async function expectOk(response: Awaited<ReturnType<APIRequestContext['get']>>) {
   expect(response.status()).toBe(200);
   expect(response.headers()['content-type']).toContain('application/json');
