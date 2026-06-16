@@ -2,8 +2,7 @@ import { test, expect, expectOk } from '../src/fixtures/apiClient';
 import type { Post } from '../src/types/Post';
 
 // Odpowiednik UpdateDeleteTest.java
-test.describe('PUT / DELETE /posts', () => {
-  test.describe.configure({ tag: ['@api', '@smoke'] });
+test.describe('PUT / DELETE /posts', { tag: ['@api', '@smoke'] }, () => {
 
   test('PUT /posts/1 aktualizuje tytuł', async ({ api }) => {
     const response = await api.put('/posts/1', {

@@ -3,8 +3,7 @@ import { PostSchema, PostsArraySchema } from '../src/schemas/postSchema';
 import type { Post } from '../src/types/Post';
 
 // Odpowiednik PostsAdvancedTest.java — deserializacja, query params, chained requests, Zod schema
-test.describe('Posts — zaawansowane techniki', () => {
-  test.describe.configure({ tag: ['@api', '@regression'] });
+test.describe('Posts — zaawansowane techniki', { tag: ['@api', '@regression'] }, () => {
 
   test('Deserializacja do typu — type-safe assertions', async ({ api }) => {
     const response = await api.get('/posts/1');

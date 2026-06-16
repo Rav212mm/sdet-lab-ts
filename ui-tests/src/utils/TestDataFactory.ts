@@ -4,19 +4,22 @@ import type { CheckoutData } from '../model/CheckoutData';
 
 const SHARED_PASSWORD = 'secret_sauce';
 
+// Jawna mapa alias → Role. Klucze: krótka nazwa roli (z feature'a),
+// pełny username (np. Role.STANDARD) oraz nazwa enuma (STANDARD).
+const ROLE_ALIASES: ReadonlyMap<string, Role> = new Map(
+  Object.entries(Role).flatMap(([key, value]) => [
+    [key.toLowerCase(), value] as const,          // "standard"
+    [value, value] as const,                      // "standard_user"
+    [value.replace(/_user$/, ''), value] as const, // "locked_out", "standard"
+  ]),
+);
+
 // Odpowiednik TestDataFactory.java
 export class TestDataFactory {
   static userForRole(role: string): SauceDemoUser {
-    const matched = Object.values(Role).find(
-      r => r === role || r.replace('_user', '') === role || role === r.split('_')[0]
-    );
-    if (!matched) {
-      // próba dopasowania po enum key (np. "standard" → STANDARD → "standard_user")
-      const byKey = (Role as Record<string, string>)[role.toUpperCase()];
-      if (!byKey) throw new Error(`Unknown SauceDemo role: ${role}`);
-      return { username: byKey, password: SHARED_PASSWORD, role };
-    }
-    return { username: matched, password: SHARED_PASSWORD, role };
+    const username = ROLE_ALIASES.get(role.toLowerCase());
+    if (!username) throw new Error(`Unknown SauceDemo role: ${role}`);
+    return { username, password: SHARED_PASSWORD, role };
   }
 
   static randomCheckoutData(): CheckoutData {

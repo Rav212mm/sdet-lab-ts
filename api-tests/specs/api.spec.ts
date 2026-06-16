@@ -3,8 +3,7 @@ import { PostSchema } from '../src/schemas/postSchema';
 import type { Post } from '../src/types/Post';
 
 // Odpowiednik ApiTest.java — smoke, GET/POST/PUT/DELETE
-test.describe('API — smoke', () => {
-  test.describe.configure({ tag: ['@api', '@smoke'] });
+test.describe('API — smoke', { tag: ['@api', '@smoke'] }, () => {
 
   test('GET /posts zwraca niepustą listę', async ({ api }) => {
     const response = await api.get('/posts');

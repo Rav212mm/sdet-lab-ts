@@ -2,8 +2,7 @@ import { test, expect } from '../src/fixtures/apiClient';
 import type { Post } from '../src/types/Post';
 
 // Odpowiednik PostTest.java
-test.describe('POST /posts', () => {
-  test.describe.configure({ tag: ['@api', '@smoke'] });
+test.describe('POST /posts', { tag: ['@api', '@smoke'] }, () => {
 
   test('tworzy post i zwraca id > 0', async ({ api }) => {
     const response = await api.post('/posts', {

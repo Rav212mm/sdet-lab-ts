@@ -10,7 +10,7 @@ export class BasePage {
   }
 
   protected async fill(locator: Locator, text: string): Promise<void> {
-    await locator.clear();
+    // Locator.fill() samo czyści pole przed wpisaniem — osobny clear() jest zbędny
     await locator.fill(text);
   }
 
